@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf8f4">
+  <meta name="description" content="Personal Chefe: alta gastronomia, ingredientes frescos e experiências inesquecíveis.">
+  <title>Personal Chefe — Uma experiência à mesa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Tema: altere estas variáveis para personalizar a identidade visual. */
+    :root {
+      color-scheme: light;
+      --color-bg: #faf8f4;
+      --color-surface: #fffdf9;
+      --color-surface-raised: #ffffff;
+      --color-text: #292521;
+      --color-muted: #706962;
+      --color-subtle: #8e867e;
+      --color-accent: #a85c25;
+      --color-accent-light: #ad6128;
+      --color-border: rgba(168, 92, 37, .34);
+      --color-border-soft: rgba(41, 37, 33, .1);
+      --color-overlay: rgba(168, 92, 37, .09);
+      --color-input: #fffdf9;
+      --color-on-accent: #ffffff;
+      --font-body: "DM Sans", sans-serif;
+      --font-display: "Playfair Display", Georgia, serif;
+      --content-width: 1160px;
+      --radius-card: 16px;
+      --radius-control: 7px;
+      --section-space: clamp(76px, 10vw, 132px);
+      --transition: 180ms ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--content-width), calc(100% - 64px)); margin-inline: auto; }
+    .accent { color: var(--color-accent); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--color-accent-light);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before, .eyebrow::after { width: 24px; height: 1px; background: var(--color-accent); content: ""; }
+    .section-heading { margin: 0; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -.035em; }
+    .section-intro { max-width: 520px; margin: 12px auto 0; color: var(--color-muted); font-size: 13px; }
+    .section-title { text-align: center; }
+    .button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 18px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--color-text);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      cursor: pointer;
+    }
+    .button:hover { transform: translateY(-2px); border-color: var(--color-accent-light); background: var(--color-overlay); }
+    .button-primary { background: linear-gradient(120deg, var(--color-accent), var(--color-accent-light)); border-color: var(--color-accent); color: var(--color-on-accent); }
+    .button-primary:hover { background: linear-gradient(120deg, var(--color-accent-light), var(--color-accent)); }
+
+    /* Navegação */
+    .site-header { position: relative; z-index: 5; border-bottom: 1px solid var(--color-border-soft); }
+    .header-inner { display: flex; height: 82px; align-items: center; justify-content: space-between; }
+    .brand { font-family: var(--font-display); font-size: 23px; line-height: .82; letter-spacing: -.07em; }
+    .brand span { display: block; }
+    .brand span + span { padding-left: 9px; }
+    .nav-list { display: flex; align-items: center; gap: clamp(22px, 4vw, 52px); margin: 0; padding: 0; list-style: none; }
+    .nav-list a { position: relative; padding: 10px 0; color: var(--color-muted); font-size: 10px; text-transform: uppercase; transition: color var(--transition); }
+    .nav-list a::after { position: absolute; right: 0; bottom: 3px; left: 0; height: 1px; background: var(--color-accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
+    .nav-list a:hover, .nav-list a.active { color: var(--color-text); }
+    .nav-list a:hover::after, .nav-list a.active::after { transform: scaleX(1); }
+    .header-actions { display: flex; align-items: center; gap: 17px; }
+    .icon-button, .menu-toggle { position: relative; display: grid; width: 30px; height: 34px; place-items: center; border: 0; background: transparent; color: var(--color-text); cursor: pointer; }
+    .icon-button svg, .menu-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
+    .cart-count { position: absolute; top: 5px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
+    .menu-toggle { display: none; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; }
+    .hero::before { position: absolute; top: 0; right: 0; width: 54%; height: 100%; background: radial-gradient(ellipse at 52% 44%, var(--color-overlay), transparent 62%); content: ""; pointer-events: none; }
+    .hero-grid { position: relative; display: grid; min-height: 580px; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 20px; padding-block: 58px 24px; }
+    .hero-copy { position: relative; z-index: 1; padding-bottom: 14px; }
+    .hero h1 { max-width: 570px; margin: 18px 0 19px; font-size: clamp(48px, 6vw, 76px); font-weight: 500; letter-spacing: -.065em; line-height: .99; }
+    .hero-description { max-width: 390px; margin: 0; padding-top: 16px; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 14px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .hero-visual { position: relative; display: grid; min-height: 470px; place-items: center; }
+    .hero-plate {
+      width: min(100%, 530px);
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid var(--color-border-soft);
+      border-radius: 50%;
+      background: var(--color-surface);
+      box-shadow: 0 0 0 10px rgba(41,37,33,.035), 0 0 70px var(--color-overlay);
+    }
+    .hero-plate img { width: 100%; height: 100%; object-fit: cover; }
+    .feature { display: flex; align-items: flex-start; gap: 12px; padding-right: 10px; border-right: 1px solid var(--color-border); }
+    .feature:last-child { border-right: 0; }
+    .feature-icon { color: var(--color-accent); font-size: 19px; line-height: 1.1; }
+    .feature strong { display: block; color: var(--color-accent-light); font-size: 10px; font-weight: 500; line-height: 1.35; text-transform: uppercase; }
+    .feature span { display: block; margin-top: 5px; color: var(--color-muted); font-size: 10px; }
+
+    /* Pratos */
+    .favorites { padding-top: var(--section-space); }
+    .dish-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 42px; }
+    .dish-card { min-width: 0; overflow: hidden; padding: 12px; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-surface-raised); transition: transform var(--transition), border-color var(--transition); }
+    .dish-card:hover { transform: translateY(-5px); border-color: var(--color-accent-light); }
+    .dish-image { overflow: hidden; aspect-ratio: 1.08; border-radius: 10px; background: var(--color-surface); }
+    .dish-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+    .dish-card:hover .dish-image img { transform: scale(1.045); }
+    .dish-card h3 { margin: 13px 0 4px; color: var(--color-accent-light); font-size: 15px; font-weight: 500; }
+    .dish-card p { min-height: 40px; margin: 0; color: var(--color-muted); font-size: 10px; line-height: 1.6; }
+    .dish-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+    .dish-price { font-size: 18px; font-weight: 600; }
+    .add-dish { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--color-border); border-radius: 50%; background: transparent; color: var(--color-text); font-size: 20px; transition: background var(--transition); cursor: pointer; }
+    .add-dish:hover { background: var(--color-accent); }
+    .center-action { display: none; justify-content: center; margin-top: 30px; }
+
+    /* Nossa história */
+    .story { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: 8%; padding-top: var(--section-space); }
+    .story-copy .eyebrow { margin-bottom: 16px; }
+    .story-copy .section-heading { font-size: clamp(29px, 3.4vw, 42px); }
+    .story-copy > p { max-width: 440px; margin: 18px 0 12px; color: var(--color-muted); font-size: 13px; }
+    .signature { margin-top: 16px; color: var(--color-accent-light); font-family: var(--font-display); font-size: 23px; font-style: italic; }
+    .story-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
+    .story-stat { border-right: 1px solid var(--color-border); }
+    .story-stat:last-child { border: 0; }
+    .story-stat strong { display: block; color: var(--color-accent-light); font-size: 20px; font-weight: 500; }
+    .story-stat span { color: var(--color-muted); font-size: 10px; }
+    .story-gallery { display: grid; height: 400px; grid-template-columns: 1.7fr .8fr; gap: 14px; }
+    .story-gallery img { width: 100%; height: 100%; object-fit: cover; border: 1px solid var(--color-border); border-radius: 14px; }
+    .story-main-image { overflow: hidden; border-radius: 14px; }
+    .story-main-image img { transition: transform 500ms ease; }
+    .story-main-image:hover img { transform: scale(1.035); }
+    .story-side-images { display: grid; grid-template-rows: 1fr 1fr; gap: 14px; min-height: 0; }
+
+    /* Depoimentos */
+    .testimonials { padding-top: var(--section-space); }
+    .reviews-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+    .avatar-stack { display: flex; padding-left: 7px; }
+    .avatar-stack img { width: 34px; height: 34px; margin-left: -7px; border: 2px solid var(--color-bg); border-radius: 50%; object-fit: cover; }
+    .rating-stars { color: var(--color-accent); letter-spacing: 2px; }
+    .rating-score { color: var(--color-text); font-size: 15px; }
+    .rating-caption { display: block; color: var(--color-muted); font-size: 10px; text-align: right; }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 20px; margin-top: 36px; }
+    .review-card { padding: 22px; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-surface-raised); }
+    .review-card:nth-child(2) { padding-block: 28px; }
+    .review-top { display: flex; align-items: center; justify-content: space-between; }
+    .review-person { display: flex; align-items: center; gap: 11px; }
+    .review-person img { width: 42px; height: 42px; border: 1px solid var(--color-border); border-radius: 50%; object-fit: cover; }
+    .review-stars { color: var(--color-accent); font-size: 13px; letter-spacing: 1px; }
+    .quote-mark { color: var(--color-accent-light); font-family: var(--font-display); font-size: 42px; line-height: .8; }
+    .review-card p { min-height: 74px; margin: 18px 0; color: var(--color-muted); font-size: 12px; line-height: 1.7; }
+    .review-author { padding-top: 12px; border-top: 1px solid var(--color-border); }
+    .review-author strong { display: block; color: var(--color-accent-light); font-size: 11px; font-weight: 500; }
+    .review-author span { color: var(--color-muted); font-size: 10px; }
+
+
+    /* Rodapé */
+    .site-footer { margin-top: var(--section-space); border-top: 1px solid var(--color-border-soft); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr .7fr 1fr 1.2fr; gap: 48px; padding-block: 52px 42px; }
+    .footer-brand { margin-bottom: 18px; }
+    .footer-about { max-width: 220px; margin: 0; color: var(--color-muted); font-size: 11px; }
+    .footer-column h3 { margin: 2px 0 16px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .footer-links { display: grid; gap: 6px; margin: 0; padding: 0; color: var(--color-muted); font-size: 11px; list-style: none; }
+    .footer-links a:hover { color: var(--color-accent-light); }
+    .contact-list { display: grid; gap: 11px; margin: 0; padding: 0; color: var(--color-muted); font-size: 11px; list-style: none; }
+    .contact-list li { display: flex; gap: 10px; }
+    .contact-list span:first-child { color: var(--color-accent-light); }
+    .newsletter-copy { margin: 0 0 14px; color: var(--color-muted); font-size: 11px; }
+    .newsletter-form { display: flex; min-height: 39px; border: 1px solid var(--color-border); border-radius: var(--radius-control); overflow: hidden; }
+    .newsletter-form input { width: 100%; min-width: 0; padding: 0 12px; border: 0; outline: 0; background: var(--color-input); color: var(--color-text); font-size: 10px; }
+    .newsletter-form input::placeholder { color: var(--color-subtle); }
+    .newsletter-form button { padding: 0 13px; border: 0; background: var(--color-accent); color: var(--color-on-accent); font-size: 9px; text-transform: uppercase; cursor: pointer; }
+    .form-message { min-height: 18px; margin: 7px 0 0; color: var(--color-accent-light); font-size: 10px; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 17px; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: 10px; }
+    .legal-links { display: flex; gap: 20px; }
+    .legal-links a:hover { color: var(--color-text); }
+
+    @media (max-width: 900px) {
+      .container { width: min(100% - 44px, var(--content-width)); }
+      .header-inner { height: 74px; }
+      .nav-list { gap: 22px; }
+      .hero-grid { min-height: 500px; grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: clamp(46px, 7vw, 64px); }
+      .hero-visual { min-height: 390px; }
+      .dish-grid { grid-template-columns: repeat(2, 1fr); }
+      .story { gap: 5%; }
+      .story-gallery { height: 340px; }
+      .footer-grid { gap: 28px; }
+    }
+    @media (max-width: 640px) {
+      :root { --section-space: 78px; }
+      .container { width: calc(100% - 36px); }
+      .header-inner { height: 68px; }
+      .brand { font-size: 21px; }
+      .menu-toggle { display: grid; }
+      .header-actions { gap: 8px; }
+      .header-actions .header-actions .icon-button:last-child { display: none; }
+      .nav-list { position: absolute; top: 68px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--color-border); background: var(--color-bg); }
+      .nav-list.is-open { display: flex; flex-direction: column; }
+      .nav-list a { display: block; padding: 11px 0; }
+      .nav-list a::after { bottom: 6px; right: auto; width: 35px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 0; padding-block: 52px 20px; }
+      .hero-copy { padding-bottom: 0; }
+      .hero h1 { max-width: 450px; font-size: clamp(49px, 12vw, 70px); }
+      .hero-description { max-width: 420px; }
+      .hero-visual { min-height: 0; margin: 28px auto 0; width: min(100%, 440px); }
+      .hero-plate { width: 86%; }
+      .feature { gap: 7px; padding-right: 7px; }
+      .feature-icon { font-size: 15px; }
+      .feature strong, .feature span { font-size: 8px; }
+      .dish-grid { gap: 12px; margin-top: 30px; }
+      .dish-card { padding: 9px; border-radius: 12px; }
+      .dish-card h3 { font-size: 13px; }
+      .dish-card p { font-size: 9px; }
+      .dish-price { font-size: 16px; }
+      .add-dish { width: 32px; height: 32px; }
+      .story { grid-template-columns: 1fr; gap: 30px; }
+      .story-gallery { height: 340px; }
+      .reviews-heading { align-items: flex-start; flex-direction: column; }
+      .review-grid { grid-template-columns: 1fr; gap: 13px; margin-top: 26px; }
+      .review-card, .review-card:nth-child(2) { padding: 20px; }
+      .review-card p { min-height: 0; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 24px; padding-block: 42px 32px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 380px) {
+      .container { width: calc(100% - 28px); }
+      .hero h1 { font-size: 46px; }
+      .hero-buttons .button { flex: 1; padding-inline: 10px; font-size: 9px; }
+      .feature { flex-direction: column; }
+      .footer-grid { column-gap: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio"><span>Personal</span><span>Chefe</span></a>
+      <nav aria-label="Navegação principal">
+        <ul class="nav-list" id="main-navigation">
+          <li><a class="active" href="#inicio">Início</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#especiais">Especiais</a></li>
+          <li><a href="#historia">Nossa história</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+
+        <a class="icon-button" href="#menu" aria-label="Ver pedidos"><span class="cart-count"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-navigation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Cozinha excepcional</span>
+          <h1>Sabor feito<br>à <span class="accent">perfeição</span></h1>
+          <p class="hero-description">Criando experiências gastronômicas excepcionais, uma receita de cada vez.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#menu">Peça agora <span aria-hidden="true">→</span></a>
+            <a class="button" href="#contato">Botão De Ação<span aria-hidden="true">↗</span></a>
+          </div>
+
+        </div>
+        <div class="hero-visual">
+          <div class="hero-plate">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=1100&amp;q=88" alt="Prato autoral colorido com vegetais frescos e ingredientes selecionados">
+          </div>
+        
+        </div>
+      </div>
+    </section>
+
+    <section class="favorites container" id="especiais">
+      <div class="section-title">
+        <span class="eyebrow">Favoritos do chef</span>
+        <h2 class="section-heading">Nossa <span class="accent">seleção</span></h2>
+        <p class="section-intro">Favoritos feitos à mão com ingredientes frescos e paixão em cada detalhe.</p>
+      </div>
+      <div class="dish-grid" id="menu">
+        <article class="dish-card">
+          <div class="dish-image"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Filé grelhado servido com legumes da estação" loading="lazy"></div>
+          <h3>Filé Angus grelhado</h3><p>Filé macio, legumes da estação e molho da casa.</p>
+          <div class="dish-bottom"><span class="dish-price">R$ 0,00</span><button class="add-dish" type="button" aria-label="Adicionar Filé Angus ao pedido">+</button></div>
+        </article>
+        <article class="dish-card">
+          <div class="dish-image"><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Massa artesanal com ervas frescas e molho cremoso" loading="lazy"></div>
+          <h3>Massa trufada</h3><p>Massa fresca ao creme de parmesão e trufas.</p>
+          <div class="dish-bottom"><span class="dish-price">R$ 0,00</span><button class="add-dish" type="button" aria-label="Adicionar Massa trufada ao pedido">+</button></div>
+        </article>
+        <article class="dish-card">
+          <div class="dish-image"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Hambúrguer artesanal com queijo, salada e batatas" loading="lazy"></div>
+          <h3>Maison burger</h3><p>Blend da casa, queijo curado e brioche tostado.</p>
+          <div class="dish-bottom"><span class="dish-price">R$ 0,00</span><button class="add-dish" type="button" aria-label="Adicionar Maison burger ao pedido">+</button></div>
+        </article>
+        <article class="dish-card">
+          <div class="dish-image"><img src="https://tse4.mm.bing.net/th/id/OIP.aw3AxE0ANslzh1AgW-ugZQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Prato delicado de frutos do mar com ervas" loading="lazy"></div>
+          <h3>Risoto do mar</h3><p>Arroz arbóreo, frutos do mar e toque de limão siciliano.</p>
+          <div class="dish-bottom"><span class="dish-price">R$ 0,00</span><button class="add-dish" type="button" aria-label="Adicionar Risoto do mar ao pedido">+</button></div>
+        </article>
+      </div>
+      <div class="center-action"><a class="button" href="#contato">Ver menu completo <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="story container" id="historia">
+      <div class="story-copy">
+        <span class="eyebrow">Nossa história</span>
+        <h2 class="section-heading">Paixão em <span class="accent">cada prato</span></h2>
+        <p>Nós da  Personal Chefe, acredita que boa comida aproxima as pessoas. Nossa equipe cria cada prato com dedicação, usando os melhores ingredientes para transformar cada visita em uma lembrança especial.</p>
+        <div class="signature">Personal Chefe</div>
+        <div class="story-stats">
+          <div class="story-stat"><strong>12+</strong><span>Anos de excelência</span></div>
+          <div class="story-stat"><strong>50+</strong><span>Pratos autorais</span></div>
+          <div class="story-stat"><strong>10 mil+</strong><span>Clientes felizes</span></div>
+        </div>
+      </div>
+      <div class="story-gallery">
+        <div class="story-main-image"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Chef finalizando com cuidado um prato na cozinha" loading="lazy"></div>
+        <div class="story-side-images">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&amp;fit=crop&amp;w=500&amp;q=85" alt="Mesa preparada para uma experiência especial" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&amp;fit=crop&amp;w=500&amp;q=85" alt="Ambiente acolhedor do restaurante" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials container" id="avaliacoes">
+      <div class="reviews-heading">
+        <div><span class="eyebrow">O que dizem nossos clientes</span><h2 class="section-heading" style="margin-top:14px">Experiências <span class="accent">inesquecíveis</span></h2></div>
+
+      </div>
+      <div class="review-grid">
+        <article class="review-card">
+          <div class="review-top"><div class="review-person"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=100&amp;h=100&amp;q=80" alt=""><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div><span class="quote-mark" aria-hidden="true">”</span></div>
+          <p>A comida estava excepcional, o ambiente é elegante e cada detalhe superou nossas expectativas.</p><div class="review-author"><strong>Fernanda M.</strong><span>Food blogger</span></div>
+        </article>
+        <article class="review-card">
+          <div class="review-top"><div class="review-person"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=100&amp;h=100&amp;q=80" alt=""><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div><span class="quote-mark" aria-hidden="true">”</span></div>
+          <p>Uma das melhores experiências gastronômicas que já tivemos. Apresentação linda e sabores incríveis.</p><div class="review-author"><strong>Christian P.</strong><span>Empreendedor</span></div>
+        </article>
+        <article class="review-card">
+          <div class="review-top"><div class="review-person"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&amp;fit=crop&amp;w=100&amp;h=100&amp;q=80" alt=""><span class="review-stars" aria-label="5 estrelas">★★★★★</span></div><span class="quote-mark" aria-hidden="true">”</span></div>
+          <p>Um dos melhores jantares da cidade. Serviço atencioso, pratos lindos e saborosos.</p><div class="review-author"><strong>Mika S.</strong><span>Viajante</span></div>
+        </article>
+      </div>
+   
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contato">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#inicio"><span>Personal</span><span>Chefe</span></a>
+        <p class="footer-about">Elevando sabores, criando memórias. Uma experiência gastronômica para lembrar.</p>
+      </div>
+      <div class="footer-column"><h3>Links rápidos</h3><ul class="footer-links"><li><a href="#inicio">Início</a></li><li><a href="#menu">Menu</a></li><li><a href="#especiais">Especiais</a></li><li><a href="#historia">Nossa história</a></li><li><a href="#contato">Contato</a></li></ul></div>
+      <div class="footer-column"><h3>Fale conosco</h3><ul class="contact-list"><li><span aria-hidden="true">⌖</span><span>Rua das Flores, 178<br>Jardins, São Paulo — SP</span></li><li><span aria-hidden="true">☎</span><a href="tel:+551130282029">(11) 3028-2029</a></li><li><span aria-hidden="true">✉</span><a href="mailto:ola@maisonsavour.com.br">ola@maisonsavour.com.br</a></li><li><span aria-hidden="true">◷</span><span>Seg — Dom: 11h às 23h</span></li></ul></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Personal Chefe. Todos os direitos reservados.</span><div class="legal-links"><a href="#contato">Política de privacidade</a><a href="#contato">Termos de uso</a></div></div>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#main-navigation");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Abrir menu" : "Fechar menu");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navigation.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menu");
+      }
+    });
+
+    document.querySelectorAll(".add-dish").forEach((button) => {
+      button.addEventListener("click", () => {
+        const cartCount = document.querySelector(".cart-count");
+        const count = Number(cartCount.dataset.count || 0) + 1;
+        cartCount.dataset.count = String(count);
+        cartCount.textContent = count;
+        cartCount.style.width = "16px";
+        cartCount.style.height = "16px";
+        cartCount.style.top = "0";
+        cartCount.style.right = "-4px";
+        cartCount.style.display = "grid";
+        cartCount.style.placeItems = "center";
+        cartCount.style.color = "var(--color-on-accent)";
+        cartCount.style.fontSize = "9px";
+        button.textContent = "✓";
+        window.setTimeout(() => { button.textContent = "+"; }, 900);
+      });
+    });
+
+    document.querySelector(".newsletter-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = document.querySelector("#newsletter-email");
+      document.querySelector(".form-message").textContent = `Obrigado! Enviaremos novidades para ${email.value}.`;
+      event.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>
