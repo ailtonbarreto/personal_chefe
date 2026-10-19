@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#faf8f4">
-  <meta name="description" content="Personal Chefe: alta gastronomia, ingredientes frescos e experiências inesquecíveis.">
-  <title>Personal Chefe — Uma experiência à mesa</title>
+  <meta name="description" content="Cin-Chefe: alta gastronomia, ingredientes frescos e experiências inesquecíveis.">
+  <title>Cin-Chefe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -92,17 +92,16 @@
     .site-header { position: relative; z-index: 5; border-bottom: 1px solid var(--color-border-soft); }
     .header-inner { display: flex; height: 82px; align-items: center; justify-content: space-between; }
     .brand { font-family: var(--font-display); font-size: 23px; line-height: .82; letter-spacing: -.07em; }
-    .brand span { display: block; }
-    .brand span + span { padding-left: 9px; }
+    .brand img{width: 12rem;} 
     .nav-list { display: flex; align-items: center; gap: clamp(22px, 4vw, 52px); margin: 0; padding: 0; list-style: none; }
     .nav-list a { position: relative; padding: 10px 0; color: var(--color-muted); font-size: 10px; text-transform: uppercase; transition: color var(--transition); }
     .nav-list a::after { position: absolute; right: 0; bottom: 3px; left: 0; height: 1px; background: var(--color-accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform var(--transition); }
     .nav-list a:hover, .nav-list a.active { color: var(--color-text); }
     .nav-list a:hover::after, .nav-list a.active::after { transform: scaleX(1); }
     .header-actions { display: flex; align-items: center; gap: 17px; }
-    .icon-button, .menu-toggle { position: relative; display: grid; width: 30px; height: 34px; place-items: center; border: 0; background: transparent; color: var(--color-text); cursor: pointer; }
-    .icon-button svg, .menu-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
-    .icon-button svg { width: 20px; height: 20px; }
+    .icon-button, .menu-toggle { position: relative; display: grid; width: 34px; height: 34px; place-items: center; border: 0; background: transparent; color: var(--color-text); cursor: pointer; }
+    .icon-button svg, .menu-toggle svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5; }
+    .icon-button svg { width: 30px; height: 30px; }
     .cart-count { position: absolute; top: 5px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
     .menu-toggle { display: none; }
 
@@ -154,7 +153,7 @@
     .story-copy > p { max-width: 440px; margin: 18px 0 12px; color: var(--color-muted); font-size: 13px; }
     .signature { margin-top: 16px; color: var(--color-accent-light); font-family: var(--font-display); font-size: 23px; font-style: italic; }
     .story-stats { display: flex; margin-top: 34px; }
-    .story-stat { border-right: 1px solid var(--color-border); }
+    .story-stat { margin: 1vw; }
     .story-stat:last-child { border: 0; }
     .story-stat strong { display: block; color: var(--color-accent-light); font-size: 20px; font-weight: 500; }
     .story-stat span { color: var(--color-muted); font-size: 10px; }
@@ -254,22 +253,13 @@
       .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 24px; padding-block: 42px 32px; }
       .footer-bottom { align-items: flex-start; flex-direction: column; }
     }
-    @media (max-width: 380px) {
-      .container { width: calc(100% - 28px); }
-      .hero h1 { font-size: 46px; }
-      .hero-buttons .button { flex: 1; padding-inline: 10px; font-size: 9px; }
-      .feature { flex-direction: column; }
-      .footer-grid { column-gap: 15px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-    }
+
   </style>
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#inicio"><span>Personal</span><span>Chefe</span></a>
+      <a class="brand" href="#inicio"><img src="./logo.png" alt=""></a>
       <nav aria-label="Navegação principal">
         <ul class="nav-list" id="main-navigation">
           <li><a class="active" href="#inicio">Início</a></li>
@@ -348,8 +338,8 @@
       <div class="story-copy">
         <span class="eyebrow">Nossa história</span>
         <h2 class="section-heading">Paixão em <span class="accent">cada prato</span></h2>
-        <p>Nós da  Personal Chefe, acredita que boa comida aproxima as pessoas. Nossa equipe cria cada prato com dedicação, usando os melhores ingredientes para transformar cada visita em uma lembrança especial.</p>
-        <div class="signature">Personal Chefe</div>
+        <p>Nós da  Cin-Chefe, acredita que boa comida aproxima as pessoas. Nossa equipe cria cada prato com dedicação, usando os melhores ingredientes para transformar cada visita em uma lembrança especial.</p>
+        <div class="signature">Serviço de Personal Chef</div>
         <div class="story-stats">
           <div class="story-stat"><strong>12+</strong><span>Anos de excelência</span></div>
           <div class="story-stat"><strong>50+</strong><span>Pratos autorais</span></div>
@@ -387,7 +377,7 @@
   <footer class="site-footer" id="contato">
     <div class="container footer-grid">
       <div>
-        <a class="brand footer-brand" href="#inicio"><span>Personal</span><span>Chefe</span></a>
+        <a class="brand footer-brand" href="#inicio"><img src="./logo.png"></a>
       </div>
       <div class="footer-column"><h3>Links rápidos</h3><ul class="footer-links"><li><a href="#inicio">Início</a></li><li><a href="#menu">Menu</a></li><li><a href="#historia">Nossa história</a></li><li><a href="#contato">Contato</a></li></ul></div>
       <div class="footer-column"><h3>Fale conosco</h3><ul class="contact-list"><li><span aria-hidden="true">⌖</span><span>Rua das Flores, 178<br>Jardins, São Paulo — SP</span></li><li><span aria-hidden="true">☎</span><a href="tel:+551130282029">(11) 3028-2029</a></li><li><span aria-hidden="true">✉</span><a href="mailto:ola@teste.com.br">contato@teste.com.br</a></li></ul></div>
